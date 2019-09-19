@@ -231,7 +231,7 @@ class Jugador2 extends Jugadores {
 
             case 78:
                 this._posicion += 28;
-         case 2:
+             case 2:
                 this._posicion += 36;
                 break
             case 7:
@@ -308,6 +308,9 @@ while(j1.posicion<100 && j2.posicion<100){
     j1.avanzar();
     j2.avanzar();
     console.log(j1.posicion,j2.posicion);
+
+    document.querySelector("#resultado").innerHTML += j1.posicion+"<br>"+"jugador1"+"     ";
+    document.querySelector("#resultado").innerHTML += j2.posicion+"<br>"+"jugador2"+"     ";
 }
 
 if (j1.posicion>=100 && j2.posicion>=100){
