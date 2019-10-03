@@ -1,41 +1,47 @@
-export default class Tienda{
-    constructor(tabla){
+export default class Tienda {
+    constructor(tabla) {
         this._tabla = tabla;
         this._vector = new Array(20);
+        this._contador = 0;
     }
-    _agregar(producto){
-        let row = this._tabla.insertRow(-1);
-
-        let cellCodigo = row.insertCell(0);
-        let cellNombre = row.insertCell(1);
-        let cellPrecio = row.insertCell(2);
-        let cellCantidad = row.insertCell(3);
-        let cellDescripcion = row.insertCell(4);
-       
-
-        cellCodigo.innerHTML = producto.codigo;
-        cellNombre.innerHTML = producto.nombre;
-        cellPrecio.innerHTML = producto.precio;
-        cellCantidad.innerHTML = producto.cantidad;
-        cellDescripcion.innerHTML = producto.descripcion;
-        
-
-        let objProductos = {
-            codigo:producto.codigo,
-            nombre:producto.nombre,
-            precio:producto.precio,
-            cantidad:producto.cantidad,
-            descripcion:producto.descripcion
+    _agregar(objproducto) {
+        if (this._contador < 20) {
+            this._vector[this._contador] = objproducto;
+            this._contador++;
+            console.log(objproducto.codigo);
+            this.ordenarProducto();
+           
+        }else{
+            alert("se llego al cupo maximo de productos")
         }
 
-        this._vector.vectorBinario2(objProductos);
+        console.log(this._vector);
+
 
     }
 
-    _buscarProducto(codigo){
+
+    actualizarTabla() {
+        this._tabla.innerHTML = "";
+
+        for (let i = 0; i < this._contador; i++) {
+
+            let row = this._tabla.insertRow(-1);
+
+            row.insertCell(0).innerHTML = this._vector[i].codigo
+            row.insertCell(1).innerHTML = this._vector[i].nombre
+            row.insertCell(2).innerHTML = this._vector[i].precio
+            row.insertCell(3).innerHTML = this._vector[i].cantidad 
+            row.insertCell(4).innerHTML = this._vector[i].descripcion
+
+        }
+    }
+
+
+    _buscarProducto(codigo) {
         let result = -1;
         this._vector.forEach((producto, index) => {
-            if(producto.codigo === codigo){
+            if (producto.codigo === codigo) {
                 result = index;
                 return;
             }
@@ -44,8 +50,24 @@ export default class Tienda{
 
     }
 
-    agregarProducto(producto){
-        this._agregar(producto);
+
+    ordenarProducto() {
+        for (var i = 0; i < this._contador; i++) {
+            for (var j = 0; j < this._contador; j++) {
+                for (var l = 0; l < this._contador; l++) {
+                    if (this._vector[j].codigo < this._vector[l].codigo) {
+                        let n = this._vector[j];
+                        this._vector[j] = this._vector[l];
+                        this._vector[l] = n;
+                    }
+                }
+            }
+
+        }
+    }
+
+    agregarProducto(objproducto){
+        this._agregar(objproducto);
         Swal.fire({
             type: "success",
             title: "Correcto",
@@ -69,26 +91,26 @@ export default class Tienda{
 
     }*/
 
-    vectorBinario2(array, item){
+    vectorBinario2(array, item) {
         var min = 0;
-        var max = array.length -1;
+        var max = array.length - 1;
 
-        while(min <= max){
+        while (min <= max) {
 
-            var med = Math.floor((min + max)/2);
+            var med = Math.floor((min + max) / 2);
             var guess = array[med];
 
-            if(guess === item){
+            if (guess === item) {
                 return med;
             }
-            if(guess > item){
-                max = med -1;
-            }else{
-                min = med +1;
+            if (guess > item) {
+                max = med - 1;
+            } else {
+                min = med + 1;
             }
 
         }
-        return -1;   
+        return -1;
 
     }
     /*
@@ -111,31 +133,31 @@ export default class Tienda{
       }*/
 
 
-    }
+}
 
-    /*
-    function vectorBinario (array, item){
-        var min = 0;
-        var max = array.length -1;
+/*
+function vectorBinario (array, item){
+    var min = 0;
+    var max = array.length -1;
 
-        while(min <= max){
+    while(min <= max){
 
-            var med = Math.floor((min + max)/2);
-            var guess = array[med];
+        var med = Math.floor((min + max)/2);
+        var guess = array[med];
 
-            if(guess = item){
-                return med;
-            }
-            if(guess > item){
-                max = med -1;
-            }else{
-                min = med +1;
-            }
-
+        if(guess = item){
+            return med;
         }
-        return -1;
-        
-        
+        if(guess > item){
+            max = med -1;
+        }else{
+            min = med +1;
+        }
 
     }
-    */
+    return -1;
+    
+    
+
+}
+*/

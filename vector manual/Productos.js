@@ -1,10 +1,10 @@
 export default class Producto {
-    constructor(producto) {
-        this._codigo = producto.codigo;
-        this._nombre = producto.nombre;
-        this._precio = producto.precio;
-        this._cantidad = producto.cantidad;
-        this._descripcion = producto.descripcion;
+    constructor(objproducto) {
+        this._codigo = objproducto.codigo;
+        this._nombre = objproducto.nombre;
+        this._precio = objproducto.precio;
+        this._cantidad = objproducto.cantidad;
+        this._descripcion = objproducto.descripcion;
 
     }
     get codigo() {
